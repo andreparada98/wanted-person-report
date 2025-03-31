@@ -1,0 +1,37 @@
+<form class="space-y-2">
+    <div class="flex flex-col space-y-1">
+        <label for="fileInput" class="text-sm font-medium">Selecione um ou mais arquivos:</label>
+
+        <label class="cursor-pointer inline-block px-4 py-2 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded">
+            Selecionar Arquivos
+            <input type="file" multiple (change)="onFileChange($event)" class="hidden" />
+        </label>
+    </div>
+
+    <div *ngIf="selectedFiles.length > 0">
+        <p class="text-sm font-medium">Arquivos selecionados:</p>
+
+        <div class="max-h-32 overflow-y-auto">
+            <table class="table-fixed w-full border-collapse text-sm">
+                <thead>
+                    <tr>
+                        <th class="border px-2 py-1">Nome do Arquivo</th>
+                        <th class="border px-2 py-1">Tamanho do Arquivo</th>
+                        <th class="border px-2 py-1">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of selectedFiles">
+                        <td class="border px-2 py-1" title="{{ file.name }}">
+                            {{ file.name.length > 15 ? (file.name | slice: 0 : 15) + '...' : file.name }}
+                        </td>
+                        <td class="border px-2 py-1">{{ file.size | number }} bytes</td>
+                        <td class="border px-2 py-1">
+                            <button type="button" (click)="removeFile(file)" class="text-red-500">X</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
