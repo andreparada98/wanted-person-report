@@ -1,1 +1,17 @@
-<p>wanted-persons works!</p>
+<div class="flex gap-4">
+    <div class="flex flex-wrap gap-4 items-center justify-center">
+        <WantedPersonCard
+            *ngFor="let person of pessoasAbertoFiltroResponse"
+            [imageUrl]="person.urlFoto"
+            [tag]="person.ultimaOcorrencia.dataLocalizacao"
+            [wantedPersonName]="person.nome"
+            [id]="person.id"
+            [wantedPersonAge]="person.idade"
+            [wantedPersonGender]="person.sexo"
+            [disappearanceDate]="person.ultimaOcorrencia.dtDesaparecimento"
+            [disappearanceLocation]="person.ultimaOcorrencia.localDesaparecimentoConcat"
+            [wantedPersonLastOcurrenceInfo]="person.ultimaOcorrencia.ocorrenciaEntrevDesapDTO.informacao"
+            [wantedPersonLastOcurrenceVestment]="person.ultimaOcorrencia.ocorrenciaEntrevDesapDTO.vestimentasDesaparecido"
+        />
+    </div>
+</div>

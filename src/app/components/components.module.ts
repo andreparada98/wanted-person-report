@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { LayoutHeaderComponent } from './layout-header/layout-header.component';
 import { LayoutFooterComponent } from './layout-footer/layout-footer.component';
-import { AnotaAiCardComponent } from './anota-ai-card/anota-ai-card.component';
 import { WantedPersonCardComponent } from './wanted-person-card/wanted-person-card.component';
+import { CommonModule } from '@angular/common';
+import { PipesModule } from '../shared/pipes/pipes.module';
 
 @NgModule({
-    declarations: [LayoutHeaderComponent, LayoutFooterComponent, AnotaAiCardComponent, WantedPersonCardComponent],
+    imports: [CommonModule, PipesModule],
+    declarations: [LayoutHeaderComponent, LayoutFooterComponent, WantedPersonCardComponent],
     providers: [],
-    exports: [LayoutHeaderComponent, LayoutFooterComponent, AnotaAiCardComponent, WantedPersonCardComponent],
+    exports: [LayoutHeaderComponent, LayoutFooterComponent, WantedPersonCardComponent],
 })
 export class ComponentsModule {}
