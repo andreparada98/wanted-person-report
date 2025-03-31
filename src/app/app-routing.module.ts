@@ -16,6 +16,7 @@ const routes: Routes = [
             import('./pages/wanted-person-unique-report/wanted-person-unique-report.module').then((m) => m.WantedPersonUniqueReportModule),
         outlet: 'modal',
     },
+    { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
