@@ -1,0 +1,13 @@
+<select
+    [value]="value"
+    (change)="onSelectChange($event)"
+    (blur)="onTouched()"
+    [disabled]="disabled"
+    [ngClass]="{ 'text-gray-500': value === null, 'text-gray-900': value !== null }"
+    class="block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-500 focus:border-indigo-500"
+>
+    <option [ngValue]="null">{{ placeholder }}</option>
+    <option *ngFor="let option of options" [ngValue]="option.value">
+        {{ option.label }}
+    </option>
+</select>
