@@ -16,6 +16,7 @@ import { ModalComponent } from './modal/modal.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { TextAreaComponent } from './text-area/text-area.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
     imports: [CommonModule, PipesModule, FormsModule],
@@ -34,6 +35,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
         DatePickerComponent,
         TextAreaComponent,
         FileUploadComponent,
+        LoadingComponent,
     ],
     providers: [],
     exports: [
@@ -51,6 +53,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
         DatePickerComponent,
         TextAreaComponent,
         FileUploadComponent,
+        LoadingComponent,
     ],
 })
 export class ComponentsModule {}

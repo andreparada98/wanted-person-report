@@ -1,5 +1,6 @@
 import { Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { isDefined } from '../../shared/helpers/is-defined';
 
 @Component({
     selector: 'XFileUpload',
@@ -20,11 +21,7 @@ export class FileUploadComponent implements ControlValueAccessor {
     onChange: (value: File[]) => void = () => {};
     onTouched: () => void = () => {};
 
-    writeValue(obj: File[]): void {
-        if (obj && Array.isArray(obj)) {
-            this.selectedFiles = obj;
-        }
-    }
+    writeValue(obj: File[]): void {}
 
     registerOnChange(fn: (value: File[]) => void): void {
         this.onChange = fn;
@@ -40,8 +37,8 @@ export class FileUploadComponent implements ControlValueAccessor {
 
     onFileChange(event: Event): void {
         const input = event.target as HTMLInputElement;
-        if (input.files && input.files.length > 0) {
-            this.selectedFiles = Array.from(input.files);
+        if (isDefined(input.files) && input.files) {
+            this.selectedFiles.push(...Array.from(input.files));
             this.onChange(this.selectedFiles);
         }
     }
