@@ -1,4 +1,7 @@
-<LayoutHeader />
-<div>
-    <router-outlet></router-outlet>
+<div class="flex flex-col min-h-screen">
+    <LayoutHeader />
+    <main class="flex-grow pt-4">
+        <router-outlet></router-outlet>
+    </main>
+    <LayoutFooter />
 </div>
