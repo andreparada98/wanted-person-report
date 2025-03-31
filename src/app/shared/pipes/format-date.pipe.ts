@@ -6,7 +6,8 @@ import { formatDate as utilFormatDate } from '../../shared/helpers/format-date';
     pure: true,
 })
 export class FormatDatePipe implements PipeTransform {
-    transform(value: Date): string {
+    transform(value?: Date): string {
+        if (!value) return '';
         return utilFormatDate(value);
     }
 }

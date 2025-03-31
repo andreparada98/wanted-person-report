@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { isDefined } from '../../shared/helpers/is-defined';
 
 @Component({
@@ -7,15 +7,22 @@ import { isDefined } from '../../shared/helpers/is-defined';
 })
 export class WantedPersonCardComponent {
     @Input() tag?: string;
-    @Input() wantedPersonAge: number = 0;
-    @Input() wantedPersonName: string = '';
-    @Input() wantedPersonGender: string = 'NÃO INFORMADO';
-    @Input() disappearanceLocation: string = '';
-    @Input() disappearanceDate: Date = new Date();
-    @Input() wantedPersonLastOcurrenceInfo: string = '';
-    @Input() wantedPersonLastOcurrenceVestment: string = '';
-    @Input() imageUrl: string = '';
-    @Input() id: number = 0;
+    @Input() wantedPersonAge?: number = 0;
+    @Input() wantedPersonName?: string = '';
+    @Input() wantedPersonGender?: string = 'NÃO INFORMADO';
+    @Input() disappearanceLocation?: string = '';
+    @Input() disappearanceDate?: Date = new Date();
+    @Input() wantedPersonLastOcurrenceInfo?: string = '';
+    @Input() wantedPersonLastOcurrenceVestment?: string = '';
+    @Input() imageUrl?: string = '';
+    @Input() id?: number = 0;
+
+    @Output() cardClick = new EventEmitter<number>();
+
+    onCardClick(): void {
+        if (!this.id) return;
+        this.cardClick.emit(this.id);
+    }
 
     getTagDetails(tag?: string) {
         if (isDefined(tag)) return { description: 'Localizado', color: '#3f6600' };

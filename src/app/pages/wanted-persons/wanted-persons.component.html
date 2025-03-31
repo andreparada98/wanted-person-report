@@ -1,17 +1,55 @@
-<div class="flex gap-4">
+<div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 items-center">
+        <h3 class="text-2xl font-bold">Procurar por pessoas</h3>
+        <form [formGroup]="form" class="flex gap-4 items-center justify-center">
+            <XInput placeholder="Buscar por nome" formControlName="nome"></XInput>
+            <XSelectWantedPersonStatus formControlName="status"></XSelectWantedPersonStatus>
+            <XSelectWantedPersonGender formControlName="sexo"></XSelectWantedPersonGender>
+            <XInputNumber
+                placeholder="Faixa de idade inicial"
+                formControlName="faixaIdadeInicial"
+                [errorMessage]="form.errors?.['idadeRange']"
+            ></XInputNumber>
+            <XInputNumber placeholder="Faixa de idade final" formControlName="faixaIdadeFinal"></XInputNumber>
+        </form>
+    </div>
     <div class="flex flex-wrap gap-4 items-center justify-center">
         <WantedPersonCard
             *ngFor="let person of pessoasAbertoFiltroResponse"
             [imageUrl]="person.urlFoto"
-            [tag]="person.ultimaOcorrencia.dataLocalizacao"
-            [wantedPersonName]="person.nome"
-            [id]="person.id"
-            [wantedPersonAge]="person.idade"
-            [wantedPersonGender]="person.sexo"
-            [disappearanceDate]="person.ultimaOcorrencia.dtDesaparecimento"
-            [disappearanceLocation]="person.ultimaOcorrencia.localDesaparecimentoConcat"
-            [wantedPersonLastOcurrenceInfo]="person.ultimaOcorrencia.ocorrenciaEntrevDesapDTO.informacao"
-            [wantedPersonLastOcurrenceVestment]="person.ultimaOcorrencia.ocorrenciaEntrevDesapDTO.vestimentasDesaparecido"
+            [tag]="person.ultimaOcorrencia?.dataLocalizacao"
+            [wantedPersonName]="person?.nome"
+            [id]="person?.id"
+            [wantedPersonAge]="person?.idade"
+            [wantedPersonGender]="person?.sexo"
+            [disappearanceDate]="person?.ultimaOcorrencia?.dtDesaparecimento"
+            [disappearanceLocation]="person?.ultimaOcorrencia?.localDesaparecimentoConcat"
+            [wantedPersonLastOcurrenceInfo]="person?.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.informacao"
+            [wantedPersonLastOcurrenceVestment]="person?.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.vestimentasDesaparecido"
+            (cardClick)="navigateToDetails($event)"
         />
     </div>
+    <XNotFound *ngIf="pessoasAbertoFiltroResponse.length === 0" message="Nenhum filtro atendeu o requisito." />
+
+    <footer class="mt-4" *ngIf="pessoasAbertoFiltroResponse.length > 0">
+        <nav class="flex items-center justify-center gap-4">
+            <button
+                (click)="previousPage()"
+                [disabled]="currentPage === 1"
+                class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50"
+            >
+                Anterior
+            </button>
+
+            <span class="text-gray-700">Página {{ currentPage }} de {{ totalPages }}</span>
+
+            <button
+                (click)="nextPage()"
+                [disabled]="currentPage === totalPages"
+                class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50"
+            >
+                Próximo
+            </button>
+        </nav>
+    </footer>
 </div>

@@ -5,12 +5,12 @@ export interface PessoasAbertoFiltroResponse {
     sexo: string;
     vivo: boolean;
     urlFoto: string;
-    ultimaOcorrencia: UltimaOcorrencia;
+    ultimaOcorrencia?: UltimaOcorrencia;
 }
 
 export interface UltimaOcorrencia {
     dtDesaparecimento: Date;
-    dataLocalizacao: string;
+    dataLocalizacao?: string;
     encontradoVivo: boolean;
     localDesaparecimentoConcat: string;
     ocorrenciaEntrevDesapDTO: OcorrenciaEntrevDesapDTO;
