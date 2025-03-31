@@ -3,7 +3,7 @@
         class="relative h-[400px] overflow-hidden font-sans border border-gray-300 rounded-lg shadow transition-transform duration-300 bg-white hover:scale-105 hover:shadow-lg"
     >
         <div class="relative w-full">
-            <img [src]="imageUrl | imageUrlOrNotFound" alt="Imagem" class="w-full block h-52 object-contain rounded-t-lg" />
+            <img [src]="imageUrl | imageUrlOrNotFound" alt="Imagem" class="w-full block h-52 object-fill rounded-t-lg" (error)="onImgError($event)" />
             <div class="absolute bottom-2 right-2 px-2 py-1 text-white rounded-2xl text-[0.8em]" [style.background-color]="getTagDetails(tag).color">
                 {{ getTagDetails(tag).description }}
             </div>

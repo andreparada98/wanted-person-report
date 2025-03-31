@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-4">
     <div class="flex flex-col gap-4 items-center">
         <h3 class="text-2xl font-bold">Procurar por pessoas</h3>
-        <form [formGroup]="form" class="flex gap-4 items-center justify-center">
+        <form [formGroup]="form" class="flex flex-wrap gap-4 items-center justify-center">
             <XInput placeholder="Buscar por nome" formControlName="nome"></XInput>
             <XSelectWantedPersonStatus formControlName="status"></XSelectWantedPersonStatus>
             <XSelectWantedPersonGender formControlName="sexo"></XSelectWantedPersonGender>
@@ -13,6 +13,7 @@
             <XInputNumber placeholder="Faixa de idade final" formControlName="faixaIdadeFinal"></XInputNumber>
         </form>
     </div>
+
     <div class="flex flex-wrap gap-4 items-center justify-center">
         <WantedPersonCard
             *ngFor="let person of pessoasAbertoFiltroResponse"
@@ -35,7 +36,7 @@
         <nav class="flex items-center justify-center gap-4">
             <button
                 (click)="previousPage()"
-                [disabled]="currentPage === 1"
+                [disabled]="currentPage === 0"
                 class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50"
             >
                 Anterior

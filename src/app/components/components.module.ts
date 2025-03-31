@@ -11,6 +11,11 @@ import { FormsModule } from '@angular/forms';
 import { SelectWantedPersonGenderComponent } from './select-wanted-person-gender/select-wanted-person-gender.component';
 import { InputNumberComponent } from './input-number/input-number.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ButtonComponent } from './button/button.component';
+import { ModalComponent } from './modal/modal.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
+import { TextAreaComponent } from './text-area/text-area.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 @NgModule({
     imports: [CommonModule, PipesModule, FormsModule],
@@ -24,6 +29,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
         SelectWantedPersonGenderComponent,
         InputNumberComponent,
         NotFoundComponent,
+        ButtonComponent,
+        ModalComponent,
+        DatePickerComponent,
+        TextAreaComponent,
+        FileUploadComponent,
     ],
     providers: [],
     exports: [
@@ -36,6 +46,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
         SelectComponent,
         InputNumberComponent,
         NotFoundComponent,
+        ButtonComponent,
+        ModalComponent,
+        DatePickerComponent,
+        TextAreaComponent,
+        FileUploadComponent,
     ],
 })
 export class ComponentsModule {}

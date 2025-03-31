@@ -10,6 +10,12 @@ const routes: Routes = [
         path: 'detalhes/:id',
         loadChildren: () => import('./pages/wanted-person-unique/wanted-person-unique.module').then((m) => m.WantedPersonUniqueModule),
     },
+    {
+        path: 'report/:ocoId',
+        loadChildren: () =>
+            import('./pages/wanted-person-unique-report/wanted-person-unique-report.module').then((m) => m.WantedPersonUniqueReportModule),
+        outlet: 'modal',
+    },
 ];
 
 @NgModule({

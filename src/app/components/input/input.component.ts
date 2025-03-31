@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 
 @Component({
     selector: 'XInput',
@@ -11,12 +11,20 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
             useExisting: forwardRef(() => InputComponent),
             multi: true,
         },
+        {
+            provide: NG_VALIDATORS,
+            useExisting: forwardRef(() => InputComponent),
+            multi: true,
+        },
     ],
 })
-export class InputComponent implements ControlValueAccessor {
+export class InputComponent implements ControlValueAccessor, Validator {
     @Input() placeholder: string = '';
     @Input() value: string = '';
     @Input() disabled: boolean = false;
+    @Input() label?: string;
+    touched: boolean = false;
+    isValid: boolean = true;
 
     onChange: (value: string) => void = () => {};
     onTouched: () => void = () => {};
@@ -41,5 +49,24 @@ export class InputComponent implements ControlValueAccessor {
         const target = event.target as HTMLInputElement;
         this.value = target.value;
         this.onChange(target.value);
+    }
+
+    onBlur(): void {
+        this.touched = true;
+        this.onTouched();
+    }
+
+    get hasError(): boolean {
+        return this.touched && (!this.value || !this.isValid);
+    }
+
+    validate(control: AbstractControl): ValidationErrors | null {
+        if (!this.value || this.value.trim() === '') {
+            this.isValid = false;
+            return { required: true };
+        }
+
+        this.isValid = true;
+        return null;
     }
 }

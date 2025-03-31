@@ -1,1 +1,67 @@
-<p>wanted-person-unique works!</p>
+<div class="container mx-auto p-4 flex flex-col gap-4" *ngIf="data">
+    <XButton label="Voltar para Listagem" variant="secondary" (clickEvent)="goBack()"></XButton>
+
+    <section>
+        <h1 class="text-3xl font-bold text-center">{{ data.nome }}</h1>
+        <h3 class="text-lg font-semibold text-center">
+            <span *ngIf="data.idade >= 0">{{ data.idade }} Anos - </span>
+            <span>{{ data.sexo }}</span>
+        </h3>
+    </section>
+
+    <section
+        class="w-full flex items-center justify-center p-4"
+        [ngClass]="{ 'bg-red-500': !data.ultimaOcorrencia?.dataLocalizacao, 'bg-green-500': data.ultimaOcorrencia?.dataLocalizacao }"
+    >
+        <p class="text-lg font-semibold text-white text-center">
+            Desaparecido desde {{ data.ultimaOcorrencia?.dtDesaparecimento | formatDate }}
+            <span *ngIf="data.ultimaOcorrencia?.dtDesaparecimento">
+                ({{ data.ultimaOcorrencia?.dtDesaparecimento | calculateDiffInDays }} dias)
+            </span>
+            <span *ngIf="data.ultimaOcorrencia?.dataLocalizacao">
+                <br />Encontrada em: {{ data.ultimaOcorrencia?.dataLocalizacao | formatDate }}
+            </span>
+        </p>
+    </section>
+
+    <section class="flex flex-col md:flex-row gap-6 justify-center">
+        <img
+            [src]="data.urlFoto | imageUrlOrNotFound"
+            alt="Foto de {{ data.nome }}"
+            class="w-96 rounded shadow border-2 border-gray-300"
+            (error)="onImgError($event)"
+        />
+
+        <div class="flex flex-col gap-1">
+            <h2 class="text-2xl font-semibold mt-6 mb-4">Ocorrência</h2>
+            <p>
+                <strong>Data de Desaparecimento:</strong>
+                {{ data.ultimaOcorrencia?.dtDesaparecimento | formatDate }}
+            </p>
+            <p>
+                <strong>Local de Desaparecimento:</strong>
+                {{ data.ultimaOcorrencia?.localDesaparecimentoConcat }}
+            </p>
+            <p *ngIf="data?.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.informacao">
+                <strong>Informações:</strong>
+                {{ data.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.informacao }}
+            </p>
+            <p *ngIf="data?.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.vestimentasDesaparecido">
+                <strong>Vestimentas:</strong>
+                {{ data.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.vestimentasDesaparecido }}
+            </p>
+        </div>
+        <XButton label="Possui Informações?" variant="primary" (clickEvent)="openReportModal()"></XButton>
+    </section>
+
+    <section *ngIf="(data.ultimaOcorrencia?.listaCartaz || []).length > 0">
+        <h2 class="text-2xl font-semibold mb-2">Cartazes Disponíveis</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div *ngFor="let cartaz of data.ultimaOcorrencia?.listaCartaz" class="w-64 border p-2 rounded shadow flex flex-col items-center">
+                <img [src]="cartaz.urlCartaz" alt="Cartaz" class="w-full object-contain rounded mb-2" />
+                <p class="mb-2 text-sm font-medium">{{ cartaz.tipoCartaz }}</p>
+                <XButton label="Baixar Cartaz" variant="primary" (clickEvent)="downloadPoster(cartaz.urlCartaz, data.nome)"></XButton>
+            </div>
+        </div>
+    </section>
+</div>

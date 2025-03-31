@@ -1,0 +1,29 @@
+<XModal title="Formulário de informações" (closed)="closeModal()">
+    <form [formGroup]="form" class="flex flex-col gap-2">
+        <div>
+            <XTextArea placeholder="Informação" formControlName="informacao" label="Informação"></XTextArea>
+            <div *ngIf="formInformacao?.invalid && formInformacao?.touched" class="text-red-600 text-sm mt-1">
+                <div *ngIf="formInformacao?.errors?.['required']">Campo obrigatório.</div>
+            </div>
+        </div>
+        <div>
+            <XDatePicker placeholder="Digite a data" formControlName="data" label="Data"></XDatePicker>
+            <div *ngIf="formData?.invalid && formData?.touched" class="text-red-600 text-sm mt-1">
+                <div *ngIf="formData?.errors?.['required']">Campo obrigatório.</div>
+                <div *ngIf="formData?.errors?.['invalidDate']">Data inválida.</div>
+            </div>
+        </div>
+        <div>
+            <h3 class="text-lg font-bold">Anexos</h3>
+            <XInput placeholder="Descrição dos Anexos" formControlName="descricao" label="Descrição dos Anexos"></XInput>
+            <div *ngIf="formDescricao?.invalid && formDescricao?.touched" class="text-red-600 text-sm mt-1">
+                <div *ngIf="formDescricao?.errors?.['required']">Campo obrigatório.</div>
+            </div>
+        </div>
+        <XFileUpload formControlName="anexos"></XFileUpload>
+        <div class="flex justify-end gap-2">
+            <XButton label="Cancelar" variant="secondary" (clickEvent)="closeModal()"></XButton>
+            <XButton label="Enviar" (clickEvent)="onSubmit()"></XButton>
+        </div>
+    </form>
+</XModal>

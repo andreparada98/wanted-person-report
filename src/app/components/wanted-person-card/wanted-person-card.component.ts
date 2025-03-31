@@ -6,7 +6,7 @@ import { isDefined } from '../../shared/helpers/is-defined';
     templateUrl: './wanted-person-card.component.html',
 })
 export class WantedPersonCardComponent {
-    @Input() tag?: string;
+    @Input() tag?: string | Date;
     @Input() wantedPersonAge?: number = 0;
     @Input() wantedPersonName?: string = '';
     @Input() wantedPersonGender?: string = 'NÃO INFORMADO';
@@ -24,9 +24,14 @@ export class WantedPersonCardComponent {
         this.cardClick.emit(this.id);
     }
 
-    getTagDetails(tag?: string) {
+    getTagDetails(tag?: string | Date) {
         if (isDefined(tag)) return { description: 'Localizado', color: '#3f6600' };
 
-        return { description: 'Não Encontrado', color: '#ff0000' };
+        return { description: 'Desaparecido', color: '#ff0000' };
+    }
+
+    onImgError(event: Event): void {
+        const imgElement = event.target as HTMLImageElement;
+        imgElement.src = 'assets/images/image-not-found.png';
     }
 }
