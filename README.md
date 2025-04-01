@@ -4,8 +4,8 @@ Este é o projeto **Wanted Person Report**, desenvolvido para exibir informaçõ
 
 ## Dados do Inscrito
 
-- **Nome:** Seu Nome
-- **E-mail:** seu.email@exemplo.com
+- **Nome:** André Parada de Oliveira Machado
+- **E-mail:** andreparada98@gmail.com
 - **Data da Inscrição:** 01/04/2025
 
 ## Descrição do Projeto
