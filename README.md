@@ -43,3 +43,36 @@ O projeto consiste em uma aplicação Angular que exibe dados de pessoas desapar
     ```bash
     sudo docker compose up --build
     ```
+
+## Build e Execução com Container
+
+Esse comando irá:
+
+- Construir a imagem Docker utilizando o Dockerfile.
+- Gerar a build de produção da aplicação Angular.
+- Copiar os arquivos da build para a imagem do NGINX.
+- Subir o container, mapeando a porta 8080 do container para a porta 8080 do host.
+
+**Acesso à Aplicação:**  
+Abra seu navegador e acesse: [http://localhost:8080](http://localhost:8080)
+
+---
+
+## Como Executar Sem Container
+
+### Pré-requisitos
+
+- Node.js e npm instalados.
+
+### Passos
+
+1. **Instalar Dependências:**  
+   Na raiz do projeto, execute:
+    ```bash
+    npm install
+    ```
+2. **Build da Aplicação:**  
+   Na raiz do projeto, execute:
+    ```bash
+    npm run start
+    ```
