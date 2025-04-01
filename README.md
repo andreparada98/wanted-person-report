@@ -1,27 +1,45 @@
-# WantedPersonReport
+# Wanted Person Report
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.13.
+Este é o projeto **Wanted Person Report**, desenvolvido para exibir informações de pessoas desaparecidas com filtros e paginação, utilizando Angular 17. A solução inclui build e deploy via Docker com NGINX.
 
-## Development server
+## Dados do Inscrito
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Nome:** Seu Nome
+- **E-mail:** seu.email@exemplo.com
+- **Data da Inscrição:** 01/04/2025
 
-## Code scaffolding
+## Descrição do Projeto
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+O projeto consiste em uma aplicação Angular que exibe dados de pessoas desaparecidas. Foi desenvolvido com Angular 17 e configurado para ser servido por meio de um container Docker com NGINX.
 
-## Build
+## Dependências
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Node.js** (versão 20.11.0 ou superior)
+- **Angular CLI**
+- **Docker** e **Docker Compose**
+- **NGINX**
 
-## Running unit tests
+## Estrutura do Projeto
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- `src/` – Código-fonte da aplicação Angular.
+- `dist/` – Pasta onde a build de produção é gerada.
+- `Dockerfile` – Arquivo de build para gerar a imagem Docker da aplicação.
+- `docker-compose.yml` – Arquivo para subir a aplicação via Docker Compose.
+- `nginx.conf` – Configuração do NGINX para servir a aplicação.
+- `README.md` – Este arquivo.
 
-## Running end-to-end tests
+## Como Buildar e Executar com Container
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Pré-requisitos
 
-## Further help
+- Docker e Docker Compose instalados.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Passos
+
+1. **Build e Subida do Container**
+
+    No terminal, na raiz do projeto, execute:
+
+    ```bash
+    sudo docker compose up --build
+    ```
