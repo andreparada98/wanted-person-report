@@ -17,6 +17,7 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
 import { TextAreaComponent } from './text-area/text-area.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { LoadingComponent } from './loading/loading.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
     imports: [CommonModule, PipesModule, FormsModule],
@@ -36,6 +37,7 @@ import { LoadingComponent } from './loading/loading.component';
         TextAreaComponent,
         FileUploadComponent,
         LoadingComponent,
+        PaginationComponent,
     ],
     providers: [],
     exports: [
@@ -54,6 +56,7 @@ import { LoadingComponent } from './loading/loading.component';
         TextAreaComponent,
         FileUploadComponent,
         LoadingComponent,
+        PaginationComponent,
     ],
 })
 export class ComponentsModule {}

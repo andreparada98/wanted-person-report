@@ -32,25 +32,5 @@
     </div>
     <XNotFound *ngIf="pessoasAbertoFiltroResponse.length === 0" message="Nenhum filtro atendeu o requisito." />
 
-    <footer class="mt-4" *ngIf="pessoasAbertoFiltroResponse.length > 0">
-        <nav class="flex items-center justify-center gap-4">
-            <button
-                (click)="previousPage()"
-                [disabled]="currentPage === 0"
-                class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50"
-            >
-                Anterior
-            </button>
-
-            <span class="text-gray-700">Página {{ currentPage }} de {{ totalPages }}</span>
-
-            <button
-                (click)="nextPage()"
-                [disabled]="currentPage === totalPages"
-                class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 disabled:opacity-50"
-            >
-                Próximo
-            </button>
-        </nav>
-    </footer>
+    <XPagination [currentPage]="displayCurrentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)"></XPagination>
 </div>

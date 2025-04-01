@@ -3,7 +3,7 @@ import { PessoasAbertoFiltroService } from '../../services/pessoas-aberto-filtro
 import { PessoasAbertoFiltroResponse } from '../../services/pessoas-aberto-filtro/pessoas-aberto-filtro.response';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { PessoasAbertoFiltroDto } from '../../services/pessoas-aberto-filtro/pessoas-aberto-filtro.dto';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import { debounceTime, distinctUntilChanged, merge, takeUntil } from 'rxjs';
 import { BaseComponent } from '../../shared/helpers/base-component';
 import { Router } from '@angular/router';
 import { isAllValuesNull } from '../../shared/helpers/is-all-values-null';
@@ -44,16 +44,33 @@ export class WantedPersonsComponent extends BaseComponent implements OnInit {
     ngOnInit(): void {
         this.getPessoasAbertoFiltro();
         this.buildFormFilterListener();
+        this.buildPageListener();
     }
 
-    private buildFormFilterListener() {
-        this.form.valueChanges.pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.unsubscribe)).subscribe(() => {
-            const { pagina, porPagina, ...filterValues } = this.form.value;
-            if (this.currentPage !== 0 && !isAllValuesNull(filterValues)) {
+    private buildPageListener() {
+        this.form
+            .get('pagina')
+            ?.valueChanges.pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.unsubscribe))
+            .subscribe(() => {
+                this.getPessoasAbertoFiltro();
+            });
+    }
+
+    private buildFormFilterListener(): void {
+        const filterObservables = [
+            this.form.get('nome')?.valueChanges.pipe(distinctUntilChanged()),
+            this.form.get('faixaIdadeInicial')?.valueChanges.pipe(distinctUntilChanged()),
+            this.form.get('faixaIdadeFinal')?.valueChanges.pipe(distinctUntilChanged()),
+            this.form.get('sexo')?.valueChanges.pipe(distinctUntilChanged()),
+            this.form.get('status')?.valueChanges.pipe(distinctUntilChanged()),
+        ].filter((obs) => obs !== undefined);
+
+        merge(...filterObservables)
+            .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.unsubscribe))
+            .subscribe(() => {
                 this.form.get('pagina')?.setValue(0);
-            }
-            this.getPessoasAbertoFiltro();
-        });
+                this.getPessoasAbertoFiltro();
+            });
     }
 
     private getPessoasAbertoFiltro() {
@@ -71,12 +88,8 @@ export class WantedPersonsComponent extends BaseComponent implements OnInit {
             });
     }
 
-    previousPage() {
-        this.form.get('pagina')?.setValue(this.currentPage - 1);
-    }
-
-    nextPage() {
-        this.form.get('pagina')?.setValue(this.currentPage + 1);
+    onPageChange(newPage: number): void {
+        this.form.get('pagina')?.setValue(newPage - 1);
     }
 
     navigateToDetails(personId: number) {
@@ -85,5 +98,9 @@ export class WantedPersonsComponent extends BaseComponent implements OnInit {
 
     get currentPage() {
         return this.form.get('pagina')?.value || 0;
+    }
+
+    get displayCurrentPage(): number {
+        return (this.form.get('pagina')?.value || 0) + 1;
     }
 }
